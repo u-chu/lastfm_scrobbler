@@ -1,0 +1,6 @@
+simple console scrobbler to Last.fm
+
+usage: lcrobbler.py <fname>
+if no file in command line, all *mp3 files will be scrobbled
+
+for property working need to put login and password in program
