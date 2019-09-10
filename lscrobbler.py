@@ -1,21 +1,35 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 import os
 import time
 import pylast
 from  mutagen.id3 import ID3
-from  mutagen.mp3 import EasyMP3 as MP3
+#~ from  mutagen.mp3 import EasyMP3 as MP3
 import hashlib
 import sys
 
+try:
+    import configparser
+except ImportError:
+    import ConfigParser as configparser
+
 #print allfiles
 #exts=[]
+config=configparser.ConfigParser()
+cname=os.path.expanduser('~/.lscrobbler.ini')
+a= config.read(cname)
+if len(a)<=0:
+	print 'config file: %s not found'%cname
+	sys.exit(2)
+
+username=config.get("Main", "username")
+password_hash=config.get("Main", "password")
 network = pylast.LastFMNetwork(
 			api_key='06e2c700f0b1403ccc5752a711319a68', 
 			api_secret='2807db680518fbe208d6edb8b2681500',
-			username='', #<---------------------------your login
-			password_hash=hashlib.md5("").hexdigest()#<--------------your password  plain-text
-			#password_hash='' #<-------------if you know md5 hash of your password, you may put it into this line, uncomment it, and comment previous line
+			username=username,
+			password_hash=password_hash
 			) 
 #for i in exts:
 if len(sys.argv)>1:
